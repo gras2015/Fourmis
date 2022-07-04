@@ -1,0 +1,164 @@
+@font-face {
+    font-family: "LemonTea";
+    src: url("../Font/LemonTea.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    }  
+header, #Logo, main, #jeu, .bouton, footer{
+    display: flex;
+    justify-content: center;
+}
+header{
+    background-color: #1E1E1E;
+    height: 200px;
+    width: 100%;
+    align-items: center;
+}
+#Logo{
+    height: 100%;
+    width: 80%;
+}
+main{
+    background-color: #1E1E1E;
+    align-items: center;
+    height: auto;
+    width: 100%;
+}
+#jeu{
+    align-items: center;
+    height: 700px;
+    width: 80%;
+}
+.bouton{
+    flex-direction: column;
+    height: 300px;
+    width: 20%;
+    min-width: 230px;
+}
+.separateur{
+    height: 50px;
+}
+.separateur{
+    height: 50px;
+}
+.param{
+    font-family: "LemonTea";
+    border: none;
+    background: none;
+    font-size: 2em;
+    color: white;
+}
+.param:hover{
+    transform: scale(1.2);
+}
+footer{
+    background-color: #1E1E1E;
+    height: 100px;
+    width: 100%;
+    justify-content: start;
+}
+#CR{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+#CR p{
+    font-size: 15px;
+    color: white;
+}
+.copyright{
+    height: 30px;
+    width: 30px;
+}
+#plateau{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 70%;
+	height: 98%;
+    margin:10px;
+    min-width: 500px;
+}
+table{
+    border-collapse: collapse;
+	width: 94%;
+	border-radius: 10px;
+    margin: 0 auto;
+}
+thead{
+	background-color: #EEE;
+	border: solid 3px white;
+}
+th{
+	height:80px;
+}
+td{
+	height:30px;
+	width: 25px;
+	border: solid 3px white;
+	text-align: center;
+	vertical-align: middle;
+}
+tr{
+    border: solid 3px white;
+}
+
+@media screen and (max-width: 810px) {
+    header{
+        height: 150px;
+        width: 100%;
+    }
+    #plateau{
+        min-width: 780px;
+    }
+    #jeu{
+        flex-direction: column-reverse;
+        height: 800px;
+    }
+    .bouton{
+        flex-direction: row;
+        width: auto;
+    }
+    .separateur{
+        width: 30px;
+    }
+    main{
+        height: auto;
+        width: 810px;
+    }
+    #CR{
+        width: 23%;
+    }
+}
+@media screen and (max-width: 500px) {
+    header{
+        height: 100px;
+        width: 100%;
+    }
+    #plateau{
+        min-width: 480px;
+    }
+    #jeu{
+        flex-direction: column-reverse;
+        height: 770px;
+    }
+    .bouton{
+        flex-direction: row;
+        width: auto;
+    }
+    .param{
+        font-size: 1.3em;
+    }
+    .separateur{
+        width: 10px;
+    }
+    main{
+        height: auto;
+        width: 500px;
+    }
+    #CR{
+        width: 33%;
+    }
+}
