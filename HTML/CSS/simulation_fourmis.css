@@ -1,0 +1,166 @@
+body{
+	background-color: #434343;
+}
+#main_content{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width:100% ;
+}
+/*en tête comportant logo et titre*/
+#header{
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: nowrap;
+	width: 100%;
+	height: 180px;
+    background: #EEE;
+}
+#logo{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	width: 25%;
+	height: 100%;
+}
+.format_logo{
+	width: 130px;
+	height: 130px;
+}
+#titre_site{
+	display: flex;
+	width: 48%;
+	height: 100%;
+	flex-direction: center;
+	align-items: center;
+}
+#vide{
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	width: 25%;
+	height: 100%;
+}
+.format_titre{
+	width: 80%;
+	height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*police du titre*/
+h1{
+	font-family: calibri;
+	font-size: 3em;
+	text-transform: uppercase;
+	color: #434343;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*corps*/
+#zone_contenu{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 700px;
+}
+/* partie centrale séparée en deux : les boutons et le tableau*/
+#contenu{
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 60%;
+	height: 600px;
+	background-color: #EEE;
+	border: 5px solid #848484;
+}
+
+/*zone contenant les boutons*/
+#lesBoutons{
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: nowrap;
+    margin:10px;
+	width: 35%;
+	height: 98%;
+}
+#start_pause{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 25%;
+}
+.format_logo_sp{
+	width: 110px;
+	height: 110px;
+	margin: 15px;
+	margin-top: 30px;
+}
+
+.format_logo_sp:hover {
+	cursor: pointer;
+}
+#rien{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 48%;
+}
+#precedent_suivant{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 25%;
+}
+button{
+	width: 150px;
+	height: 40px;
+	margin:5px;
+	margin-top : 30px;
+}
+/*police des boutons*/
+p{
+	font-family: calibri;
+	font-size: 1.6em;
+	color: #434343;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*zone contenant la grille (fourmilière)*/
+#leTableau{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 65%;
+	height: 98%;
+    margin:10px;
+}
+table{
+    border-collapse: collapse;
+	width: 94%;
+	border-radius: 10px;
+    margin: 0 auto;
+}
+thead{
+	background-color: #EEE;
+	border: solid 1px black;
+}
+th{
+	height:60px;
+}
+td{
+	height:25px;
+	width: 25px;
+	border: solid 1px black;
+	text-align: center;
+	vertical-align: middle;
+}
