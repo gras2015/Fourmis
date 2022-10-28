@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AntsWinForm.Classes
+{
+    public class Sucre
+    {
+        public int Stack { get; set; }
+        public Sucre()
+        {
+            Stack = 10;
+        }
+        public override string ToString()
+        {
+            return "S";
+        }
+    }
+}
