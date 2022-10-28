@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AntsWinForm.Classes
+{
+    public class Case
+    {
+        // Variable dont le type peut changer
+        public dynamic Contenu { get; set; }
+        public float PheromoneSucre { get; set; }
+        public int PheromoneNid { get; set; }
+
+        public Case()
+        {
+            Contenu = " ";
+        }
+        public Case(Fourmi f)
+        {
+            Contenu = f;
+        }
+
+        public Case(Sucre s)
+        {
+            Contenu = s;
+        }
+
+        public Case(Nid n)
+        {
+            Contenu = n;
+        }
+
+        public bool EstVide()
+        {
+            return Contenu.ToString() == " ";
+        }
+    }
+}
