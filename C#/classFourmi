@@ -1,0 +1,202 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AntsWinForm.Classes
+{
+    public class Fourmi
+    {
+        public string NomFourmi { get; set; }
+        public bool ContientSucre { get; set; }
+        public int Ligne { get; set; }
+        public int Colonne { get; set; }
+        public bool Deplace { get; set; }
+        public int PheromoneSucre { get; set; }
+
+        /// <summary>
+        /// Constructeur de la classe Fourmi
+        /// </summary>
+        /// <param name="nf">Nom de la fourmi</param>
+        /// <param name="l">Ligne de la fourmi</param>
+        /// <param name="c">Colonne de la fourmi</param>
+        public Fourmi(string nf, int l, int c)
+        {
+            NomFourmi = nf;
+            ContientSucre = false;
+            Ligne = l;
+            Colonne = c;
+            Deplace = false;
+            PheromoneSucre = 10;
+        } 
+
+        /// <summary>
+        /// Méthode appelée quand la fourmi dépose un point de phéromone quand elle porte du sucre
+        /// </summary>
+        /// <param name="CaseChoisie">Tableau a 2 valeurs contenant les coordonnées x et y de la case choisie</param>
+        private void DeposePheromoneSucre(int[] CaseChoisie)
+        {
+            Form1.Plateau[CaseChoisie[0], CaseChoisie[1]].PheromoneSucre = this.PheromoneSucre--;
+        }
+
+        private void ResetPhSucreFourmi()
+        {
+            PheromoneSucre = 10;
+        }
+
+        /// <summary>
+        /// Méthode qui renvoie une List des cases voisines de la fourmi
+        /// </summary>
+        /// <returns></returns>
+        private List<int[]> CaseAdja()
+        {
+            int tailleRectangle = 3;
+            List<int[]> listCasesDispo = new List<int[]>();
+
+            for (int l = this.Ligne; l > (this.Ligne - tailleRectangle); l--)
+            {
+                for (int c = this.Colonne; c < (this.Colonne + tailleRectangle); c++)
+                {
+                    if ((l + 1 <= 19) && (l + 1 >= 0) && (c - 1 <= 19) && (c - 1 >= 0))
+                        if (Form1.Plateau[l + 1, c - 1].Contenu.ToString() != "F" || Form1.Plateau[l + 1, c - 1].Contenu.NomFourmi != this.NomFourmi)
+                        {
+                            if (Form1.Plateau[l + 1, c - 1].Contenu.ToString() != "X")
+                            {
+                                listCasesDispo.Add(new int[] { l + 1, c - 1 });
+                            }
+                        }
+                }
+
+            }
+            return listCasesDispo;
+        }
+
+        public override string ToString()
+        {
+            return "F";
+        }
+
+        /// <summary>
+        /// Méthode qui permet de deplacer une fourmi
+        /// </summary>
+        /// <param name="CaseChoisi">Tableau a 2 valeurs contenant les coordonnées x et y de la case choisie</param>
+        private void SeDeplace(int[] CaseChoisi)
+        {
+            if (!this.Deplace)
+            {
+                Form1.Plateau[this.Ligne, this.Colonne].Contenu = " ";
+                Form1.Plateau[CaseChoisi[0], CaseChoisi[1]].Contenu = this;
+                this.Deplace = true;
+                this.Ligne = CaseChoisi[0];
+                this.Colonne = CaseChoisi[1];
+
+            }
+        }
+
+        private int[] SurUnePiste()
+        {
+            List<int[]> listCasesDispo = CaseAdja();
+            float phPlusIntense = 0;
+            int[] caseChoisi = new int[2];
+            for (int i = 0; i < listCasesDispo.Count(); i++)
+            {
+                Case caseSelectionnee = Form1.Plateau[listCasesDispo[i][0], listCasesDispo[i][1]];
+                if (this.ContientSucre)
+                {
+                    if (caseSelectionnee.Contenu.ToString() != "S")
+                    {
+                        if (caseSelectionnee.Contenu.ToString() != "F")
+                        {
+                            if (caseSelectionnee.PheromoneNid > phPlusIntense)
+                            {
+                                phPlusIntense = caseSelectionnee.PheromoneNid;
+                                caseChoisi = listCasesDispo[i];
+
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    if (caseSelectionnee.Contenu.ToString() != "N")
+                    {
+                        if (caseSelectionnee.PheromoneSucre > phPlusIntense)
+                        {
+                            if (caseSelectionnee.Contenu.ToString() != "F")
+                            {
+                                phPlusIntense = caseSelectionnee.PheromoneSucre;
+                                caseChoisi = listCasesDispo[i];
+                            }
+                        }
+                        if (caseSelectionnee.Contenu.ToString() == "S")
+                        {
+                            return listCasesDispo[i];
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+            if (phPlusIntense == 0)
+            {
+                List<int[]> ListeCaseVide = new List<int[]>();
+                for (int i = 0; i < listCasesDispo.Count; i++)
+                {
+                    Case caseSelectionne = Form1.Plateau[listCasesDispo[i][0], listCasesDispo[i][1]];
+                    if (caseSelectionne.Contenu.ToString() == " ")
+                    {
+                        ListeCaseVide.Add(listCasesDispo[i]);
+                    }
+                }
+                caseChoisi = ChoixRnd(ListeCaseVide);
+
+            }
+            return caseChoisi;
+        }
+
+        public void ChercheSucre()
+        {
+            int[] CaseChoisie = SurUnePiste();
+
+
+            if (Form1.Plateau[CaseChoisie[0], CaseChoisie[1]].Contenu.ToString() == "S" && Form1.Plateau[CaseChoisie[0], CaseChoisie[1]].Contenu.Stack > 0)
+            {
+                this.ContientSucre = true;
+                Form1.Plateau[CaseChoisie[0], CaseChoisie[1]].Contenu.Stack--;
+                DeposePheromoneSucre(CaseChoisie);
+            }
+            else
+            {
+                SeDeplace(CaseChoisie);
+            }
+
+        }
+
+        public void RentrerNid()
+        {
+            int[] CaseChoisie = SurUnePiste();
+            DeposePheromoneSucre(new int[] { this.Ligne, this.Colonne });
+            if (Form1.Plateau[CaseChoisie[0], CaseChoisie[1]].Contenu.ToString() == "N")
+            {
+                this.ContientSucre = false;
+                this.ResetPhSucreFourmi();
+            }
+            else
+            {
+                SeDeplace(CaseChoisie);
+            }
+        }
+
+        private int[] ChoixRnd(List<int[]> listCasesDispo)
+        {
+
+            return listCasesDispo[Form1.Rnd.Next(0, listCasesDispo.Count())];
+        }
+    }
+}
