@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AntsWinForm.Classes
+{
+    public class Nid
+    {
+        public Nid()
+        {
+        }
+
+        public override string ToString()
+        {
+            return "N";
+        }
+        
+        /// <summary>
+        /// Méthode pour la diffusion des phéromones du nid
+        /// </summary>
+        public void PropagationPheromone()
+        {
+            int intensite = 10;
+            int tailleRectangle = 2;
+            int Cdepart = 9;
+            int LDepart = 10;
+
+            int[,] TableauIntensite = new int[20, 20];
+            for (int i = 0; i < tailleRectangle; i++)
+            {
+                for (int l = LDepart; l > (LDepart - tailleRectangle); l--)
+                {
+                    for (int c = Cdepart; c < (Cdepart + tailleRectangle); c++)
+                    {
+                        if (l >= 0 && l < 20 && c >= 0 && c < 20)
+                        {
+
+                            if (TableauIntensite[l, c] == 0)
+                            {
+
+                                TableauIntensite[l, c] = intensite;
+                            }
+                        }
+                    }
+                }
+                intensite--;
+                if (tailleRectangle == 22)
+                {
+                    break;
+                }
+
+                tailleRectangle = tailleRectangle + 2;
+                Cdepart--;
+                LDepart++;
+            }
+            for (int i = 0; i < Form1.Plateau.GetLength(0); i++)
+            {
+                for (int j = 0; j < Form1.Plateau.GetLength(1); j++)
+                {
+                    Form1.Plateau[i, j].PheromoneNid = TableauIntensite[i, j];
+                }
+            }
+        }
+    }
+}
